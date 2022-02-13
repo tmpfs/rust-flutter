@@ -1,8 +1,20 @@
+import 'dart:io';
+import 'dart:ffi';
+import 'package:rust_flutter/bridge_generated.dart';
+
 import 'package:flutter/material.dart';
+
+const base = 'rust_flutter';
+final path = Platform.isWindows
+    ? '$base.dll'
+    : Platform.isMacOS
+        ? 'lib$base.dylib'
+        : 'lib$base.so';
+late final dylib = Platform.isIOS ? DynamicLibrary.process() : DynamicLibrary.open(path);
+late final api = RustFlutterImpl(dylib);
 
 void main() {
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +40,7 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'My Home Page'),
     );
   }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -49,6 +62,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //int _exampleValue = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    //_add();
+  }
+
+  // Future<void> _add() async {
+  //   final value = await api.simpleAdder(a: 12, b: 30);
+  //   if (mounted) setState(() => _exampleValue = value);
+  // }
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -96,6 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Text(
+            //   '$_exampleValue',
+            // ),
             const Text(
               'You have pushed the button this many times:',
             ),
