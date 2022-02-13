@@ -62,18 +62,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //int _exampleValue = 0;
+  int _exampleValue = 0;
 
   @override
   void initState() {
     super.initState();
-    //_add();
+    _add();
   }
 
-  // Future<void> _add() async {
-  //   final value = await api.simpleAdder(a: 12, b: 30);
-  //   if (mounted) setState(() => _exampleValue = value);
-  // }
+  Future<void> _add() async {
+    final value = await api.simpleAdder(a: 12, b: 30);
+    if (mounted) setState(() => _exampleValue = value);
+  }
 
   int _counter = 0;
 
@@ -122,9 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text(
-            //   '$_exampleValue',
-            // ),
+            Text(
+              '$_exampleValue',
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
