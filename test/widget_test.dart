@@ -19,7 +19,7 @@ import 'package:rust_flutter/main.dart';
 void main() {
 
   test('main test', () async {
-      final dylibPath = "target/debug/librust_flutter.dylib";
+      final dylibPath = "target/x86_64-apple-darwin/debug/librust_flutter.dylib";
       final dylib = DynamicLibrary.open(dylibPath);
       final api = RustFlutterImpl(dylib);
 
