@@ -15,6 +15,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		AE9F686127B90711005CE1CB /* librust_flutter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9F685D27B90304005CE1CB /* librust_flutter.a */; };
 		AE9F686227B90DF0005CE1CB /* bridge_generated.h in Resources */ = {isa = PBXBuildFile; fileRef = AE9F685B27B9009C005CE1CB /* bridge_generated.h */; };
+		AE9F686527B917B3005CE1CB /* librust_flutter.a in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE9F685D27B90304005CE1CB /* librust_flutter.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AE9F686527B917B3005CE1CB /* librust_flutter.a in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +354,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../target/universal/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tmpfs.rustFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -483,6 +487,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../target/universal/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tmpfs.rustFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -508,6 +514,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../target/universal/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tmpfs.rustFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
