@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "rust_flutter")
+set(BINARY_NAME "rust_flutter_app")
 set(APPLICATION_ID "org.tmpfs.rust_flutter")
 
 cmake_policy(SET CMP0063 NEW)
@@ -68,7 +68,6 @@ set_target_properties(${BINARY_NAME}
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
-
 # === Installation ===
 # By default, "installing" just makes a relocatable bundle in the build
 # directory.
@@ -108,6 +107,10 @@ install(CODE "
   " COMPONENT Runtime)
 install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
   DESTINATION "${INSTALL_BUNDLE_DATA_DIR}" COMPONENT Runtime)
+
+set(NATIVE_LIBRARY "${CMAKE_SOURCE_DIR}/../target/aarch64-unknown-linux-gnu/debug/librust_flutter.so")
+install(FILES "${NATIVE_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+  COMPONENT Runtime)
 
 # Install the AOT library on non-Debug builds only.
 if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
