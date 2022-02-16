@@ -25,7 +25,9 @@ brew install llvm
 
 Lets take a look at the versions of the software we used:
 
-macOS Monterey 12.1
+* macOS Monterey 12.1
+* Xcode 13.2.1
+* Android Studio Bumblebee | 2021.1.1 Patch 1
 
 ### Rust
 
@@ -84,7 +86,7 @@ flutter doctor
 
 When we build on Windows and Linux we also have to install Flutter in each virtual machine and then it is not so important to ensure that `flutter doctor` is happy but for the primary build machine lets be safe!
 
-Configure flutter for desktop variants:
+Next up configure flutter for desktop variants:
 
 ```
 flutter config --enable-macos-desktop
@@ -92,7 +94,7 @@ flutter config --enable-linux-desktop
 flutter config --enable-windows-desktop
 ```
 
-Install all the targets we need on the host machine:
+And install all the targets we need on the host machine:
 
 ```
 rustup target add \

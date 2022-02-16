@@ -1,6 +1,6 @@
 all: project
 
-PROJECT_NAME=myapp
+PROJECT_NAME=rust_flutter
 PROJECT_TARGET=demo
 PROJECT=$(PROJECT_TARGET)/$(PROJECT_NAME)
 
