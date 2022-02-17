@@ -200,6 +200,82 @@ $(SRCROOT)/../native/target/x86_64-apple-darwin/release/
 
 Now you should be able to compile and run the project in Xcode and the dynamic library will be bundled and ready to load.
 
+## Initialize the bindings
+
+To load the dynamic library add this code to the top of `lib/main.dart`:
+
+```dart
+import 'dart:io';
+import 'dart:ffi';
+import 'package:rust_flutter/bridge_generated.dart';
+
+const base = 'rust_flutter';
+final path = Platform.isWindows
+    ? '$base.dll'
+    : Platform.isMacOS
+        ? 'lib$base.dylib'
+        : 'lib$base.so';
+late final dylib = Platform.isIOS ? DynamicLibrary.process() : DynamicLibrary.open(path);
+late final api = RustFlutterImpl(dylib);
+```
+
+## Call the binding
+
+So we can see the result of calling the rust function replace the `_MyHomePageState` class with this code:
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _add();
+  }
+
+  Future<void> _add() async {
+    final value = await api.simpleAdder(a: 12, b: 30);
+    if (mounted) setState(() => _counter = value);
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+Now if you run the application again (`flutter run -d macos` or via xcode) you should see the result of calling the rust function displayed! 
+
 [homebrew]: https://brew.sh/
 [rust toolchain]: https://www.rust-lang.org/tools/install
 [flutter toolchain]: https://docs.flutter.dev/get-started/install/macos
