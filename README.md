@@ -13,7 +13,7 @@ The [rust toolchain][] and [flutter toolchain][] are essential of course.
 
 Your machine should have [xcode][] with the developer tools installed, [android studio][], [parallels][] to build for Windows and Linux as well as the Rosetta `x86_64` emulator.
 
-You should install the [flutter plugin for android][].
+You should install the [flutter plugin for android studio][].
 
 Best to have a modern version of LLVM available which can be installed using [homebrew][]:
 
@@ -179,18 +179,20 @@ Now build the dynamic library for MacOS `x86_64`:
 (cd native && cargo build --target x86_64-apple-darwin)
 ```
 
-Now we just need add the dynamic library and bindle the framework.
+Now we just need add the dynamic library and bundle the framework.
 
 
-Right-click the *Frameworks* group and add files, selecting the `../native/target/x86_64-apple-darwin/debug/librust_flutter.dylib` file realtive to the group.
+Right-click the *Frameworks* group and add files, selecting the `../native/target/x86_64-apple-darwin/debug/librust_flutter.dylib` file relative to the group.
 
 Then navigate to the *Build Settings* tab and under *Bundle Framework* select the dynamic library we just added to *Frameworks*.
 
-And configure the *Library Search Paths* settin in the *Build Settings* tab to include this value:
+Finally configure the *Library Search Paths* settin in the *Build Settings* tab to include this value:
 
 ```
 $(SRCROOT)/../native/target/x86_64-apple-darwin/debug/
 ```
+
+Now you should be able to compile and run the project in Xcode and the dynamic library will be bundled and ready to load.
 
 [homebrew]: https://brew.sh/
 [rust toolchain]: https://www.rust-lang.org/tools/install
@@ -200,5 +202,5 @@ $(SRCROOT)/../native/target/x86_64-apple-darwin/debug/
 [parallels]: https://www.parallels.com/
 [xcode]: https://developer.apple.com/xcode/
 [android studio]: https://developer.android.com/studio/
-[flutter plugin for android]: https://docs.flutter.dev/development/tools/devtools/android-studio
+[flutter plugin for android studio]: https://docs.flutter.dev/development/tools/devtools/android-studio
 
