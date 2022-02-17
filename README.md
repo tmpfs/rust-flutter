@@ -135,7 +135,7 @@ anyhow = "1"
 
 And then create a new file `api.rs` with a public function:
 
-```
+```rust
 use anyhow::Result;
 
 pub fn simple_adder(a: i32, b: i32) -> Result<i32> {
@@ -160,6 +160,37 @@ flutter_rust_bridge_codegen --rust-input native/src/api.rs --dart-output lib/bri
 This will create the file `native/src/bridge_generated.rs` and inject a module import into `lib.rs` so the generated bridge code is compiled.
 
 Also we get the generated dart code in `lib/bridge_generated.dart` and the C header file which we will need later to statically link on iOS.
+
+## MacOS
+
+Getting MacOS compiling and linking the dynamic ibrary is quite straightforward so we will do this one first.
+
+Check that you can run the vanilla flutter app:
+
+```
+flutter run -d macos
+```
+
+Then open the Xcode project in the `macos` folder and ensure it works via Xcode too (`open macos/Runner.xcodeproj`).
+
+Now build the dynamic library for MacOS `x86_64`:
+
+```
+(cd native && cargo build --target x86_64-apple-darwin)
+```
+
+Now we just need add the dynamic library and bindle the framework.
+
+
+Right-click the *Frameworks* group and add files, selecting the `../native/target/x86_64-apple-darwin/debug/librust_flutter.dylib` file realtive to the group.
+
+Then navigate to the *Build Settings* tab and under *Bundle Framework* select the dynamic library we just added to *Frameworks*.
+
+And configure the *Library Search Paths* settin in the *Build Settings* tab to include this value:
+
+```
+$(SRCROOT)/../native/target/x86_64-apple-darwin/debug/
+```
 
 [homebrew]: https://brew.sh/
 [rust toolchain]: https://www.rust-lang.org/tools/install
