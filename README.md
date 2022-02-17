@@ -182,20 +182,20 @@ Then open the Xcode project in the `macos` folder and ensure it works via Xcode 
 Now build the dynamic library for MacOS `x86_64`:
 
 ```
-(cd native && cargo build --target x86_64-apple-darwin)
+(cd native && cargo build --release --target x86_64-apple-darwin)
 ```
 
 Now we just need add the dynamic library and bundle the framework.
 
 
-Right-click the *Frameworks* group and add files, selecting the `../native/target/x86_64-apple-darwin/debug/librust_flutter.dylib` file relative to the group.
+Right-click the *Frameworks* group and add files, selecting the `../native/target/x86_64-apple-darwin/release/librust_flutter.dylib` file relative to the group.
 
 Then navigate to the *Build Settings* tab and under *Bundle Framework* select the dynamic library we just added to *Frameworks*.
 
 Finally configure the *Library Search Paths* settin in the *Build Settings* tab to include this value:
 
 ```
-$(SRCROOT)/../native/target/x86_64-apple-darwin/debug/
+$(SRCROOT)/../native/target/x86_64-apple-darwin/release/
 ```
 
 Now you should be able to compile and run the project in Xcode and the dynamic library will be bundled and ready to load.
