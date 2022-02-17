@@ -108,6 +108,53 @@ rustup target add \
   i686-linux-android
 ```
 
+## Codegen
+
+Now we can start to prepare the rust and dart code for codegen, create a new library called `native`:
+
+```
+cargo new --lib native
+```
+
+Update the `Cargo.toml` to use the required depednencies and set `crate-type` to `cdylib`:
+
+```toml
+[package]
+name = "rust_flutter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+name = "rust_flutter"
+
+[dependencies]
+flutter_rust_bridge = "1"
+anyhow = "1"
+```
+
+And then create a new file `api.rs` with a public function:
+
+```
+use anyhow::Result;
+
+pub fn simple_adder(a: i32, b: i32) -> Result<i32> {
+    Ok(a + b)
+}
+```
+
+And reference the new module in `lib.rs`:
+
+```
+mod api;
+```
+
+Now we can generate the code for the bindings:
+
+```
+flutter_rust_bridge_codegen --rust-input native/src/api.rs --dart-output lib/bridge_generated.dart -c target/bridge_generated.h
+```
+
 [homebrew]: https://brew.sh/
 [rust toolchain]: https://www.rust-lang.org/tools/install
 [flutter toolchain]: https://docs.flutter.dev/get-started/install/macos
