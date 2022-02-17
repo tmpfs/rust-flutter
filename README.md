@@ -116,7 +116,7 @@ Now we can start to prepare the rust and dart code for codegen, create a new lib
 cargo new --lib native
 ```
 
-Update the `Cargo.toml` to use the required depednencies and set `crate-type` to `cdylib`:
+Update the `Cargo.toml` to add the required dependencies and set `crate-type` to `cdylib`:
 
 ```toml
 [package]
@@ -143,6 +143,8 @@ pub fn simple_adder(a: i32, b: i32) -> Result<i32> {
 }
 ```
 
+Note that newer versions of FRB support infallible return types but for the moment we need to wrap the return value in a `Result`.
+
 And reference the new module in `lib.rs`:
 
 ```
@@ -152,8 +154,12 @@ mod api;
 Now we can generate the code for the bindings:
 
 ```
-flutter_rust_bridge_codegen --rust-input native/src/api.rs --dart-output lib/bridge_generated.dart -c target/bridge_generated.h
+flutter_rust_bridge_codegen --rust-input native/src/api.rs --dart-output lib/bridge_generated.dart -c native/target/bridge_generated.h
 ```
+
+This will create the file `native/src/bridge_generated.rs` and inject a module import into `lib.rs` so the generated bridge code is compiled.
+
+Also we get the generated dart code in `lib/bridge_generated.dart` and the C header file which we will need later to statically link on iOS.
 
 [homebrew]: https://brew.sh/
 [rust toolchain]: https://www.rust-lang.org/tools/install
