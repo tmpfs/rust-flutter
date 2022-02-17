@@ -51,6 +51,12 @@ Homebrew LLVM version 13.0.1
 flutter_rust_bridge_codegen 1.16.0
 ```
 
+### Cbindgen
+
+```
+cbindgen 0.20.0
+```
+
 ### Flutter
 
 This is the beta channel but it should work fine on stable too.
