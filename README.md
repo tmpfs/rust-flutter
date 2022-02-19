@@ -153,7 +153,7 @@ Note that newer versions of FRB support infallible return types but for the mome
 
 And reference the new module in `lib.rs`:
 
-```
+```rust
 mod api;
 ```
 
@@ -169,7 +169,7 @@ Also we get the generated dart code in `lib/bridge_generated.dart` and the C hea
 
 ## MacOS
 
-Getting MacOS compiling and linking the dynamic ibrary is quite straightforward so we will do this one first.
+Getting MacOS compiling and linking the dynamic library is quite straightforward so we will do this one first.
 
 Check that you can run the vanilla flutter app:
 
